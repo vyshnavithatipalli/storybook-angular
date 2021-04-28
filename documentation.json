@@ -234,7 +234,7 @@
         },
         {
             "name": "BubbleComponent",
-            "id": "component-BubbleComponent-4afdbe89523cb47b51c8870f2d0f28d2",
+            "id": "component-BubbleComponent-8431d312a8e8b4a4cccdab69c30c95e0",
             "file": "src/app/components/bubble/bubble.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -345,7 +345,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { preserveWhitespacesDefault } from '@angular/compiler';\nimport { AfterViewInit, Component, Input, OnInit } from '@angular/core';\nimport { circleMarker, CircleMarker, latLng, MapOptions, tileLayer } from 'leaflet';\n\n@Component({\n  selector: 'app-bubble',\n  templateUrl: './bubble.component.html',\n  styleUrls: ['./bubble.component.scss']\n})\nexport class BubbleComponent implements OnInit,AfterViewInit{\nmapOptions: MapOptions;\n@Input() data;\ncircleMarkers:CircleMarker[]=[];\ncolor:string;\n\n  constructor() { \n   \n  }\n\n  ngOnInit(): void {\n    this.initMapOptions();\n  }\nngAfterViewInit(){\nthis.makeDataMarkers();\n}\nprivate initMapOptions(){\n  this.mapOptions={\n    layers:[\n      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{\n        attribution:'&copy;Attribution',\n\n      }),\n    ],\n    zoom:1,\n    center:latLng([46.227,2.213]),\n  };\n}\nmakeDataMarkers(){\n  for(var c in this.data.data){\n    const lat=(this.data.data[c][\"coordinates\"][0]);\n    const lon=(this.data.data[c][\"coordinates\"][1]);\n    const circlemarker=circleMarker([lat,lon],{\n      radius:this.data.data[c][\"count\"],\n      fillOpacity:0.5,\n      color:'White',\n      fillColor:this.getMarkerColor(this.data.data[c][\"env\"]),\n      weight:1,\n\n    })\n    var customPopup='<b>Asset: </b>' +this.data.data[c][\"assetType\"] + '<br><b>asset Count:</b>'+this.data.data[c][\"count\"];\n    circlemarker.bindPopup(customPopup);\n    circlemarker.on('mouseover',function(e){\n      this.openPopup();\n    })\n    circlemarker.on('mouseout',function(e){\n      this.closePopup();\n    })\n    this.circleMarkers.push(circlemarker);\n\n  }\n}\n\ngetMarkerColor(env:String){\n  switch(env){\n    case \"DEV\":\n    case \"PRE-DEV\":\n      this.color=\"red\";\n      break;\n    default:\n      this.color=\"black\"\n  }\n  return this.color;\n}\n}\n",
+            "sourceCode": "import { preserveWhitespacesDefault } from '@angular/compiler';\nimport { AfterViewInit, Component, Input, OnInit } from '@angular/core';\nimport { circleMarker, CircleMarker, latLng, MapOptions, tileLayer } from 'leaflet';\n\n@Component({\n  selector: 'app-bubble',\n  templateUrl: './bubble.component.html',\n  styleUrls: ['./bubble.component.scss']\n})\nexport class BubbleComponent implements OnInit,AfterViewInit{\nmapOptions: MapOptions;\n@Input() data;\ncircleMarkers:CircleMarker[]=[];\ncolor:string;\n\n  constructor() { \n   \n  }\n\n  ngOnInit(): void {\n    this.initMapOptions();\n  }\nngAfterViewInit(){\nthis.makeDataMarkers();\n}\nprivate initMapOptions(){\n  this.mapOptions={\n    layers:[\n      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{\n        attribution:'&copy;Attribution',\n\n      }),\n    ],\n    zoom:1,\n    center:latLng([46.227,2.213]),\n  };\n}\nmakeDataMarkers(){\n  for(var c in this.data.data){\n    const lat=(this.data.data[c][\"coordinates\"][0]);\n    const lon=(this.data.data[c][\"coordinates\"][1]);\n    const circlemarker=circleMarker([lat,lon],{\n      radius:this.data.data[c][\"count\"],\n      fillOpacity:0.5,\n      color:'White',\n      fillColor:this.getMarkerColor(this.data.data[c][\"env\"]),\n      weight:1,\n\n    })\n    var customPopup='<b>Asset: </b>' +this.data.data[c][\"vehicleType\"] + '<br><b>asset Count:</b>'+this.data.data[c][\"count\"];\n    circlemarker.bindPopup(customPopup);\n    circlemarker.on('mouseover',function(e){\n      this.openPopup();\n    })\n    circlemarker.on('mouseout',function(e){\n      this.closePopup();\n    })\n    this.circleMarkers.push(circlemarker);\n\n  }\n}\n\ngetMarkerColor(env:String){\n  switch(env){\n    case \"red\":\n    case \"black\":\n      this.color=\"red\";\n      break;\n    default:\n      this.color=\"black\"\n  }\n  return this.color;\n}\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1448,17 +1448,17 @@
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Page.stories.ts",
-                "type": "Story<Page>",
-                "defaultValue": "(args: Page) => ({\n  props: args,\n})"
+                "file": "src/stories/Image.stories.ts",
+                "type": "Story<ImageComponent>",
+                "defaultValue": "(args: ImageComponent) => ({\r\n  component: ImageComponent,\r\n  props: args,\r\n})"
             },
             {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "src/stories/Image.stories.ts",
-                "type": "Story<ImageComponent>",
-                "defaultValue": "(args: ImageComponent) => ({\r\n  component: ImageComponent,\r\n  props: args,\r\n})"
+                "file": "src/stories/Page.stories.ts",
+                "type": "Story<Page>",
+                "defaultValue": "(args: Page) => ({\n  props: args,\n})"
             },
             {
                 "name": "WithHalfOpacity",

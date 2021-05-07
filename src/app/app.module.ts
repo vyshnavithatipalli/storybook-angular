@@ -15,6 +15,11 @@ import { RadarComponent } from './components/radar/radar.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
+import { IframeComponent } from './components/iframe/iframe.component';
+import { NetworkGraphComponent } from './components/network-graph/network-graph.component';
+import {NgxGraphModule} from '@swimlane/ngx-graph';
+import { PopoverDirective } from './directives/popover.directive';
+import { TabsComponent } from './components/tabs/tabs.component'
 
 @NgModule({
   declarations: [
@@ -26,7 +31,11 @@ import { MaterialModule } from './material/material.module';
     LineComponent,
     PieComponent,
     RadarComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    IframeComponent,
+    NetworkGraphComponent,
+    PopoverDirective,
+    TabsComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +43,8 @@ import { MaterialModule } from './material/material.module';
     ChartsModule,
     LeafletModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    NgxGraphModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,32 @@
+<ngx-graph class="chart-container"
+[links]="edgesCopy"
+[nodes]="nodesCopy"
+[zoomLevel]=0.5>
+<ng-template #defsTemplate>
+    <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="5" markerHeight="5" orient="auto">
+        <svg:path d="M0,-5L10,0L0,5" class="arrow-head"/>
+    </svg:marker>
+</ng-template> 
+<ng-template #nodeTemplate let-node>
+    <svg:g class="node">
+        <svg:image [attr.href]="node.img" [attr.height]="75" [attr.width]="75"
+        [appPopover]="node.popover" class="popover" placement="top" delay="500">
+    </svg:image>
+    <svg:text alignmnent-baseline="central" [attr.x]="0" [attr.y]="node.dimension.height" class="node-label">
+        {{node.label}}
+    </svg:text>
+    </svg:g>
+</ng-template>
+<ng-template #linkTemplate let-link>
+    <svg:g class="edge">
+        <svg:path class="line" stroke-width="3" marker-end="url(#arrow)">
+
+        </svg:path>
+        <svg:text class="edge-label" text-anchor="middle">
+            <textPath class="text-path" [attr.href]="'#' +link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
+                {{link.label}}
+            </textPath>
+        </svg:text>
+    </svg:g>
+</ng-template>
+</ngx-graph>

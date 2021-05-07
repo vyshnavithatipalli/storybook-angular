@@ -1,0 +1,3 @@
+<nav *ngIf="tabItems" mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let item of tabItems" [routerLink]="['/view',item.slug,item.home_slug]">{{item.title}}</a>
+</nav>

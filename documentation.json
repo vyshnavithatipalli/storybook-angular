@@ -41,7 +41,143 @@
             "hostListeners": []
         }
     ],
-    "directives": [],
+    "directives": [
+        {
+            "name": "PopoverDirective",
+            "id": "directive-PopoverDirective-d75bfca72a51457a336540f7f9c2f5c6",
+            "file": "src/app/directives/popover.directive.ts",
+            "type": "directive",
+            "description": "",
+            "sourceCode": "import { Directive, ElementRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';\n\n@Directive({\n  selector: '[appPopover]'\n})\nexport class PopoverDirective implements OnInit {\n@Input('appPopover') popoverText:any;\n@Input() placement:string;\n@Input() delay:number;\npopover:HTMLElement;\noffset:10;\n\n  constructor(private el:ElementRef,private renderer :Renderer2) { }\n  ngOnInit(): void {\n    \n  }\n  @HostListener('mouseenter') onMouseEnter(){\n    if(!this.popover){\n      this.show();\n    }\n  }\n  @HostListener('mouseleave') onMouseLeave(){\n    if(this.popover){\n      this.hide();\n    }\n  }\n\n  show(){\n    this.create();\n    this.setPosition();\n    this.renderer.addClass(this.popover,'ng-popover-show');\n  }\n  hide(){\n    this.renderer.removeClass(this.popover,'ng-popover-show');\n    window.setTimeout(()=>{\n      this.renderer.removeChild(document.body,this.popover);\n      this.popover=null;\n    },this.delay);\n  }\n  \ncreate(){\n  this.popover=this.renderer.createElement(\"div\");\n  for(var i in this.popoverText){\n    for(var j in this.popoverText[i]){\n    let keyValuePair=this.renderer.createElement(\"div\");\n    let key=this.renderer.createElement(\"span\");\n    this.renderer.addClass(key,'popover-key');\n    this.renderer.appendChild(key,this.renderer.createText(j +': '));\n    this.renderer.appendChild(keyValuePair,key);\n    this.renderer.appendChild(\n      keyValuePair,\n      this.renderer.createText(this.popoverText[i][j]),\n    );\n    this.renderer.appendChild(this.popover,keyValuePair);\n  }\n}\nthis.renderer.appendChild(document.body,this.popover);\nthis.renderer.addClass(this.popover,'ng-popover');\nthis.renderer.addClass(this.popover,'ng-popover-${this.placement}');\nthis.renderer.setStyle(this.popover,'-webkit-transition','opacity ${this.delay}ms');\nthis.renderer.setStyle(this.popover,'-moz-transition','opacity ${this.delay}ms');\nthis.renderer.setStyle(this.popover,'-o-transition','opacity${this.delay}ms');\nthis.renderer.setStyle(this.popover,'transition','opacity${this.delay}ms');\n\n\n}\nsetPosition(){\n  const hostPos=this.el.nativeElement.getBoundingClientRect();\n  const popoverPos=this.popover.getBoundingClientRect();\n  const scrollPos=window.pageYOffset||\n  document.documentElement.scrollTop||\n  document.body.scrollTop||\n  0;\n  let top,left;\n  if(this.placement==='top'){\n    top=hostPos.top -popoverPos.height -this.offset;\n    left=hostPos.left+(hostPos.width-popoverPos.width)/2;\n\n  }\n  if(this.placement==='bottom'){\n    top=hostPos.bottom +this.offset;\n    left=hostPos.left+(hostPos.width-popoverPos.width)/2;\n\n  }\n  if(this.placement==='left'){\n    left=hostPos.left -popoverPos.width -this.offset;\n    top=hostPos.top+(hostPos.height-popoverPos.height)/2;\n\n  }\n  if(this.placement==='right'){\n    left=hostPos.right +this.offset;\n    top=hostPos.top+(hostPos.height-popoverPos.height)/2;\n\n  }\n  this.renderer.setStyle(this.popover,'top','${top+scrollPos}px');\n  this.renderer.setStyle(this.popover,'left','${left}px');\n\n}\n\n\n}\n",
+            "selector": "[appPopover]",
+            "providers": [],
+            "inputsClass": [
+                {
+                    "name": "appPopover",
+                    "line": 7,
+                    "type": "any"
+                },
+                {
+                    "name": "delay",
+                    "line": 9,
+                    "type": "number"
+                },
+                {
+                    "name": "placement",
+                    "line": 8,
+                    "type": "string"
+                }
+            ],
+            "outputsClass": [],
+            "hostBindings": [],
+            "hostListeners": [
+                {
+                    "name": "mouseenter",
+                    "args": [],
+                    "argsDecorator": [],
+                    "line": 17
+                },
+                {
+                    "name": "mouseleave",
+                    "args": [],
+                    "argsDecorator": [],
+                    "line": 22
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "offset",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "popover",
+                    "type": "HTMLElement",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "create",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 41
+                },
+                {
+                    "name": "hide",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 33
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 14
+                },
+                {
+                    "name": "setPosition",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 67
+                },
+                {
+                    "name": "show",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28
+                }
+            ],
+            "implements": [
+                "OnInit"
+            ],
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "el",
+                        "type": "ElementRef"
+                    },
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2"
+                    }
+                ],
+                "line": 11,
+                "jsdoctags": [
+                    {
+                        "name": "el",
+                        "type": "ElementRef",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "renderer",
+                        "type": "Renderer2",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
     "components": [
         {
             "name": "AppComponent",
@@ -632,6 +768,110 @@
             "stylesData": ""
         },
         {
+            "name": "IframeComponent",
+            "id": "component-IframeComponent-88fb26bda827890f9e29e933d287e7cc",
+            "file": "src/app/components/iframe/iframe.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-iframe",
+            "styleUrls": [
+                "./iframe.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./iframe.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "url",
+                    "line": 10,
+                    "type": "any"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "getsafeurl",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 18
+                },
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 15
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 13
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';\nimport { DomSanitizer } from '@angular/platform-browser';\n\n@Component({\n  selector: 'app-iframe',\n  templateUrl: './iframe.component.html',\n  styleUrls: ['./iframe.component.scss']\n})\nexport class IframeComponent implements OnInit,AfterViewInit {\n@Input() url:any;\n  constructor(private sanitizer:DomSanitizer,private cd:ChangeDetectorRef) { }\n\n  ngOnInit(): void {\n  }\n  ngAfterViewInit(){\n    this.cd.detectChanges();\n  }\n  getsafeurl(){\n    return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".iframe-container{height:570px;width:100%;border:0}\r\n",
+                    "styleUrl": "./iframe.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "sanitizer",
+                        "type": "DomSanitizer"
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef"
+                    }
+                ],
+                "line": 10,
+                "jsdoctags": [
+                    {
+                        "name": "sanitizer",
+                        "type": "DomSanitizer",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit",
+                "AfterViewInit"
+            ],
+            "templateData": "<div class=\"iframe-container\">\n    <iframe [src]=\"getsafeurl()\"></iframe>\n</div>>"
+        },
+        {
             "name": "ImageComponent",
             "id": "component-ImageComponent-93ae6bb830b9aad05c59f58775798f20",
             "file": "src/app/components/image/image.component.ts",
@@ -843,6 +1083,183 @@
                 "OnInit"
             ],
             "templateData": "<div style=\"display:block;\">\n    <canvas baseChart [datasets]=\"lineChartData\"\n    [labels]=\"lineChartLabels\" [options]=\"lineChartOptions\" [colors]=\"lineChartColors\"\n    [plugins]=\"lineChartPlugins\" [legend]=\"lineChartLegend\" [chartType]=\"lineChartType\">\n    </canvas>\n    </div>\n    "
+        },
+        {
+            "name": "NetworkGraphComponent",
+            "id": "component-NetworkGraphComponent-9df5798b49272ad70f179e1f60955977",
+            "file": "src/app/components/network-graph/network-graph.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-network-graph",
+            "styleUrls": [
+                "./network-graph.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./network-graph.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "item",
+                    "line": 11,
+                    "type": "any"
+                },
+                {
+                    "name": "popover$",
+                    "line": 12,
+                    "type": "any"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "children",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 17,
+                    "modifierKind": [
+                        114
+                    ]
+                },
+                {
+                    "name": "edges",
+                    "type": "Edge",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "modifierKind": [
+                        114
+                    ]
+                },
+                {
+                    "name": "edgesCopy",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 21,
+                    "modifierKind": [
+                        114
+                    ]
+                },
+                {
+                    "name": "isPopover",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "nodes",
+                    "type": "Node",
+                    "optional": false,
+                    "description": "",
+                    "line": 15,
+                    "modifierKind": [
+                        114
+                    ]
+                },
+                {
+                    "name": "nodesCopy",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 20,
+                    "modifierKind": [
+                        114
+                    ]
+                },
+                {
+                    "name": "popOverData",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 18,
+                    "modifierKind": [
+                        114
+                    ]
+                },
+                {
+                    "name": "popoverKeys",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "modifierKind": [
+                        114
+                    ]
+                },
+                {
+                    "name": "popOverText",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 19,
+                    "modifierKind": [
+                        114
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "createPopOver",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 36
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';\nimport {Node,Edge} from '@Swimlane/ngx-graph';\n\n@Component({\n  selector: 'app-network-graph',\n  templateUrl: './network-graph.component.html',\n  styleUrls: ['./network-graph.component.scss']\n})\nexport class NetworkGraphComponent implements OnInit {\n@Input('item') graphCardItems:any;\n@Input('popover$') popover$:any;\nisPopover:any; \npublic edges:Edge;\npublic nodes:Node;\npublic popoverKeys:any;\npublic children:any;\npublic popOverData:any;\npublic popOverText:any;\npublic nodesCopy:any;\npublic edgesCopy:any;\n\n  constructor(private cd:ChangeDetectorRef) { }\n\n  ngOnInit(): void {\n    this.edges=this.graphCardItems.data.edges;\n    this.nodes=this.graphCardItems.data.nodes;\n    this.popover$.subscribe(x=>this.isPopover=x);\n    this.nodesCopy=JSON.parse(JSON.stringify(this.nodes));\n    this.edgesCopy=JSON.parse(JSON.stringify(this.edges));\n    if(this.isPopover){\n      this.popoverKeys=this.graphCardItems.items[0].fieldType;\n      this.createPopOver();\n    }\n  }\n  createPopOver(){\n    for(var i in this.nodesCopy){\n      this.popOverText={};\n      this.popOverData=[];\n      for(var j in this.popoverKeys){\n        if(this.nodesCopy[i].hasOwnProperty(this.popoverKeys[j])){\n          this.popOverText[this.popoverKeys[j]]=this.nodesCopy[i][this.popoverKeys[j]];\n        }\n      }\n      this.popOverData.push(this.popOverText);\n      this.nodesCopy[i]['popover']=this.popOverData;\n    }\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".node-label{font-weight:bold;font-size:22px}\r\n",
+                    "styleUrl": "./network-graph.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef"
+                    }
+                ],
+                "line": 21,
+                "jsdoctags": [
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<ngx-graph class=\"chart-container\"\n[links]=\"edgesCopy\"\n[nodes]=\"nodesCopy\"\n[zoomLevel]=0.5>\n<ng-template #defsTemplate>\n    <svg:marker id=\"arrow\" viewBox=\"0 -5 10 10\" refX=\"8\" refY=\"0\" markerWidth=\"5\" markerHeight=\"5\" orient=\"auto\">\n        <svg:path d=\"M0,-5L10,0L0,5\" class=\"arrow-head\"/>\n    </svg:marker>\n</ng-template> \n<ng-template #nodeTemplate let-node>\n    <svg:g class=\"node\">\n        <svg:image [attr.href]=\"node.img\" [attr.height]=\"75\" [attr.width]=\"75\"\n        [appPopover]=\"node.popover\" class=\"popover\" placement=\"top\" delay=\"500\">\n    </svg:image>\n    <svg:text alignmnent-baseline=\"central\" [attr.x]=\"0\" [attr.y]=\"node.dimension.height\" class=\"node-label\">\n        {{node.label}}\n    </svg:text>\n    </svg:g>\n</ng-template>\n<ng-template #linkTemplate let-link>\n    <svg:g class=\"edge\">\n        <svf:path class=\"line\" stroke-width=\"3\" marker-end=\"url(#arrow)\">\n\n        </svf:path>\n        <svg:text class=\"edge-label\" text-anchor=\"middle\">\n            <textPath class=\"text-path\" [attr.href]=\"'#' +link.id\" [style.dominant-baseline]=\"link.dominantBaseline\" startOffset=\"50%\">\n                {{link.label}}\n            </textPath>\n        </svg:text>\n    </svg:g>\n</ng-template>\n</ngx-graph>"
         },
         {
             "name": "PageComponent",
@@ -1185,6 +1602,90 @@
                 "OnInit"
             ],
             "templateData": "<mat-spinner></mat-spinner>"
+        },
+        {
+            "name": "TabsComponent",
+            "id": "component-TabsComponent-39b7c1b64cb2820bc4907e0373108ab1",
+            "file": "src/app/components/tabs/tabs.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-tabs",
+            "styleUrls": [
+                "./tabs.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./tabs.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "tableItems$",
+                    "line": 9,
+                    "type": "any"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "tabItems",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 10
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 14
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-tabs',\n  templateUrl: './tabs.component.html',\n  styleUrls: ['./tabs.component.scss']\n})\nexport class TabsComponent implements OnInit {\n@Input() tableItems$:any;\ntabItems:any;\n\n  constructor(private cd:ChangeDetectorRef) { }\n\n  ngOnInit(): void {\n    this.tableItems$.subscribe(x=>{\n      this.tabItems=x;\n      this.cd.detectChanges();\n    });\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".mat-tab-link{color:white;background-color:#0f203d;opacity:1}\r\n",
+                    "styleUrl": "./tabs.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef"
+                    }
+                ],
+                "line": 10,
+                "jsdoctags": [
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<nav *ngIf=\"tabItems\" mat-tab-nav-bar>\n    <a mat-tab-link *ngFor=\"let item of tabItems\" [routerLink]=\"['/view',item.slug,item.home_slug]\">{{item.title}}</a>\n</nav>"
         }
     ],
     "modules": [
@@ -1211,19 +1712,31 @@
                             "name": "DoughnutComponent"
                         },
                         {
+                            "name": "IframeComponent"
+                        },
+                        {
                             "name": "ImageComponent"
                         },
                         {
                             "name": "LineComponent"
                         },
                         {
+                            "name": "NetworkGraphComponent"
+                        },
+                        {
                             "name": "PieComponent"
+                        },
+                        {
+                            "name": "PopoverDirective"
                         },
                         {
                             "name": "RadarComponent"
                         },
                         {
                             "name": "SpinnerComponent"
+                        },
+                        {
+                            "name": "TabsComponent"
                         }
                     ]
                 },
@@ -1387,7 +1900,7 @@
                 "subtype": "variable",
                 "file": "src/app/material/material.module.ts",
                 "type": "[]",
-                "defaultValue": "[MatSidenavModule,MatProgressSpinnerModule]"
+                "defaultValue": "[MatSidenavModule,MatProgressSpinnerModule,MatTabsModule]"
             },
             {
                 "name": "NoImageCaption",
@@ -1627,7 +2140,7 @@
                     "subtype": "variable",
                     "file": "src/app/material/material.module.ts",
                     "type": "[]",
-                    "defaultValue": "[MatSidenavModule,MatProgressSpinnerModule]"
+                    "defaultValue": "[MatSidenavModule,MatProgressSpinnerModule,MatTabsModule]"
                 }
             ],
             "src/stories/Image.stories.ts": [
@@ -1741,6 +2254,15 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/components/iframe/iframe.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "IframeComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/components/image/image.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -1756,6 +2278,15 @@
                 "name": "LineComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/11",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/network-graph/network-graph.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "NetworkGraphComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/15",
                 "status": "low"
             },
             {
@@ -1783,6 +2314,24 @@
                 "name": "SpinnerComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/tabs/tabs.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TabsComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/directives/popover.directive.ts",
+                "type": "directive",
+                "linktype": "directive",
+                "name": "PopoverDirective",
+                "coveragePercent": 0,
+                "coverageCount": "0/14",
                 "status": "low"
             },
             {

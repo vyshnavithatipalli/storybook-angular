@@ -1,0 +1,5 @@
+<p *ngFor="let summaryListRow of list">
+    <span class="list-row-title">{{summaryListRow.text}}</span>
+    <span *ngIf="summaryListRow.count">:{{summaryListRow.count}}</span>
+    <span *ngIf="summaryListRow.category">{{summaryListRow.category}}</span>
+</p>

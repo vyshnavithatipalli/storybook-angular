@@ -19,7 +19,12 @@ import { IframeComponent } from './components/iframe/iframe.component';
 import { NetworkGraphComponent } from './components/network-graph/network-graph.component';
 import {NgxGraphModule} from '@swimlane/ngx-graph';
 import { PopoverDirective } from './directives/popover.directive';
-import { TabsComponent } from './components/tabs/tabs.component'
+import { TabsComponent } from './components/tabs/tabs.component';
+import { SelectComponent } from './components/select/select.component';
+import { SelectFilterComponent } from './components/select-filter/select-filter.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { SummaryListComponent } from './components/summary-list/summary-list.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,10 @@ import { TabsComponent } from './components/tabs/tabs.component'
     IframeComponent,
     NetworkGraphComponent,
     PopoverDirective,
-    TabsComponent
+    TabsComponent,
+    SelectComponent,
+    SelectFilterComponent,
+    SummaryListComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +52,9 @@ import { TabsComponent } from './components/tabs/tabs.component'
     LeafletModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgxGraphModule
+    NgxGraphModule,
+    CommonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

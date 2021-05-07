@@ -45,6 +45,7 @@
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
+    "@storybook/addons": "^6.1.21",
     "@storybook/angular": "^6.2.9",
     "@storybook/storybook-deployer": "^2.8.7",
     "@types/jasmine": "~3.6.0",

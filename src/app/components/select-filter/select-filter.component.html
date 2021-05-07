@@ -1,0 +1,10 @@
+<mat-form-field [formGroup]="columnsForm">
+    <mat-label> Coulmns Visibility</mat-label>
+    <mat-select formControlName="columnControl" multiple>
+        <mat-option #allSelected (click)="toggleAllSelection()" [value]="0">Select All</mat-option>
+        <hr>
+        <mat-option *ngFor="let col of hiddenColumnsList" [value]="col" (click)="togglePerOne(col)">
+            {{col}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

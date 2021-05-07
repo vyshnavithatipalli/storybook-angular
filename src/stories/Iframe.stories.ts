@@ -6,6 +6,6 @@ storiesOf('IFrame',module)
 .add('Default',()=>({
     component:IframeComponent,
     props:{
-        url:"https://www.w3schools.com"
+        url:"http://localhost:6006"
     }
 }));

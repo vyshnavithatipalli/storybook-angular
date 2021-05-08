@@ -7,7 +7,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-const MaterialComponents=[MatSidenavModule,MatProgressSpinnerModule,MatTabsModule,MatSelectModule,MatFormFieldModule,ReactiveFormsModule]
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort'
+const MaterialComponents=[MatSidenavModule,MatProgressSpinnerModule,MatTabsModule,MatSelectModule,MatFormFieldModule,MatSortModule,MatTableModule,ReactiveFormsModule]
 
 @NgModule({
   declarations: [],

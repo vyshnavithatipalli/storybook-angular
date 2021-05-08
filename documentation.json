@@ -370,7 +370,7 @@
         },
         {
             "name": "BubbleComponent",
-            "id": "component-BubbleComponent-8431d312a8e8b4a4cccdab69c30c95e0",
+            "id": "component-BubbleComponent-e4d88847fcdb6a908d79d62974368b29",
             "file": "src/app/components/bubble/bubble.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -429,7 +429,7 @@
                     "optional": false,
                     "returnType": "string",
                     "typeParameters": [],
-                    "line": 63,
+                    "line": 70,
                     "jsdoctags": [
                         {
                             "name": "env",
@@ -446,7 +446,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 26,
+                    "line": 27,
                     "modifierKind": [
                         112
                     ]
@@ -457,7 +457,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 38
+                    "line": 40
                 },
                 {
                     "name": "ngAfterViewInit",
@@ -465,7 +465,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 23
+                    "line": 24
                 },
                 {
                     "name": "ngOnInit",
@@ -481,7 +481,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { preserveWhitespacesDefault } from '@angular/compiler';\nimport { AfterViewInit, Component, Input, OnInit } from '@angular/core';\nimport { circleMarker, CircleMarker, latLng, MapOptions, tileLayer } from 'leaflet';\n\n@Component({\n  selector: 'app-bubble',\n  templateUrl: './bubble.component.html',\n  styleUrls: ['./bubble.component.scss']\n})\nexport class BubbleComponent implements OnInit,AfterViewInit{\nmapOptions: MapOptions;\n@Input() data;\ncircleMarkers:CircleMarker[]=[];\ncolor:string;\n\n  constructor() { \n   \n  }\n\n  ngOnInit(): void {\n    this.initMapOptions();\n  }\nngAfterViewInit(){\nthis.makeDataMarkers();\n}\nprivate initMapOptions(){\n  this.mapOptions={\n    layers:[\n      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{\n        attribution:'&copy;Attribution',\n\n      }),\n    ],\n    zoom:1,\n    center:latLng([46.227,2.213]),\n  };\n}\nmakeDataMarkers(){\n  for(var c in this.data.data){\n    const lat=(this.data.data[c][\"coordinates\"][0]);\n    const lon=(this.data.data[c][\"coordinates\"][1]);\n    const circlemarker=circleMarker([lat,lon],{\n      radius:this.data.data[c][\"count\"],\n      fillOpacity:0.5,\n      color:'White',\n      fillColor:this.getMarkerColor(this.data.data[c][\"env\"]),\n      weight:1,\n\n    })\n    var customPopup='<b>Asset: </b>' +this.data.data[c][\"vehicleType\"] + '<br><b>asset Count:</b>'+this.data.data[c][\"count\"];\n    circlemarker.bindPopup(customPopup);\n    circlemarker.on('mouseover',function(e){\n      this.openPopup();\n    })\n    circlemarker.on('mouseout',function(e){\n      this.closePopup();\n    })\n    this.circleMarkers.push(circlemarker);\n\n  }\n}\n\ngetMarkerColor(env:String){\n  switch(env){\n    case \"red\":\n    case \"black\":\n      this.color=\"red\";\n      break;\n    default:\n      this.color=\"black\"\n  }\n  return this.color;\n}\n}\n",
+            "sourceCode": "import { AfterViewInit, Component, Input, OnInit } from '@angular/core';\nimport { circleMarker, CircleMarker, latLng, MapOptions, tileLayer } from 'leaflet';\n\n@Component({\n  selector: 'app-bubble',\n  templateUrl: './bubble.component.html',\n  styleUrls: ['./bubble.component.scss']\n})\nexport class BubbleComponent implements OnInit,AfterViewInit{\nmapOptions: MapOptions;\n@Input() data;\ncircleMarkers:CircleMarker[]=[];\ncolor:string;\n\n  constructor() { \n   \n  }\n\n  ngOnInit(): void {\n\n    this.initMapOptions();\n  }\nngAfterViewInit(){\nthis.makeDataMarkers();\n}\nprivate initMapOptions(){\n  this.mapOptions={\n    layers:[\n      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{\n        attribution:'&copy;Attribution',\n\n      }),\n    ],\n    zoom:1,\n    center:latLng([46.227,2.213]),\n  };\n  console.log(this.mapOptions)\n}\nmakeDataMarkers(){\n  \n  console.log(this.data.data)\n  for(var c in this.data.data){\n    const lat=(this.data.data[c][\"coordinates\"][0]);\n    const lon=(this.data.data[c][\"coordinates\"][1]);\n    const circlemarker=circleMarker([lat,lon],{\n      radius:this.data.data[c][\"count\"],\n      fillOpacity:0.5,\n      color:'White',\n      fillColor:this.getMarkerColor(this.data.data[c][\"color\"]),\n      weight:1,\n\n    })\n    \n    var customPopup='<b>Vehicle: </b>' +this.data.data[c][\"vehicleType\"] + '<br><b>Count:</b>'+this.data.data[c][\"count\"];\n  \n    circlemarker.bindPopup(customPopup);\n    circlemarker.on('mouseover',function(e){\n      this.openPopup();\n    });\n    circlemarker.on('mouseout',function(e){\n      this.closePopup();\n    });\n    this.circleMarkers.push(circlemarker);\n    console.log(this.circleMarkers)\n\n  }\n}\n\ngetMarkerColor(env:String){\n  switch(env){\n    case \"red\":\n      this.color=\"red\"\n    case \"black\":\n      this.color=\"red\";\n      break;\n    default:\n      this.color=\"orange\"\n  }\n  return this.color;\n}\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1086,7 +1086,7 @@
         },
         {
             "name": "NetworkGraphComponent",
-            "id": "component-NetworkGraphComponent-9df5798b49272ad70f179e1f60955977",
+            "id": "component-NetworkGraphComponent-92db567670d929084bdd73594541500e",
             "file": "src/app/components/network-graph/network-graph.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -1211,7 +1211,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 36
+                    "line": 38
                 },
                 {
                     "name": "ngOnInit",
@@ -1227,7 +1227,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';\nimport {Node,Edge} from '@Swimlane/ngx-graph';\n\n@Component({\n  selector: 'app-network-graph',\n  templateUrl: './network-graph.component.html',\n  styleUrls: ['./network-graph.component.scss']\n})\nexport class NetworkGraphComponent implements OnInit {\n@Input('item') graphCardItems:any;\n@Input('popover$') popover$:any;\nisPopover:any; \npublic edges:Edge;\npublic nodes:Node;\npublic popoverKeys:any;\npublic children:any;\npublic popOverData:any;\npublic popOverText:any;\npublic nodesCopy:any;\npublic edgesCopy:any;\n\n  constructor(private cd:ChangeDetectorRef) { }\n\n  ngOnInit(): void {\n    this.edges=this.graphCardItems.data.edges;\n    this.nodes=this.graphCardItems.data.nodes;\n    this.popover$.subscribe(x=>this.isPopover=x);\n    this.nodesCopy=JSON.parse(JSON.stringify(this.nodes));\n    this.edgesCopy=JSON.parse(JSON.stringify(this.edges));\n    if(this.isPopover){\n      this.popoverKeys=this.graphCardItems.items[0].fieldType;\n      this.createPopOver();\n    }\n  }\n  createPopOver(){\n    for(var i in this.nodesCopy){\n      this.popOverText={};\n      this.popOverData=[];\n      for(var j in this.popoverKeys){\n        if(this.nodesCopy[i].hasOwnProperty(this.popoverKeys[j])){\n          this.popOverText[this.popoverKeys[j]]=this.nodesCopy[i][this.popoverKeys[j]];\n        }\n      }\n      this.popOverData.push(this.popOverText);\n      this.nodesCopy[i]['popover']=this.popOverData;\n    }\n  }\n\n}\n",
+            "sourceCode": "import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';\nimport {Node,Edge} from '@Swimlane/ngx-graph';\n\n@Component({\n  selector: 'app-network-graph',\n  templateUrl: './network-graph.component.html',\n  styleUrls: ['./network-graph.component.scss']\n})\nexport class NetworkGraphComponent implements OnInit {\n@Input('item') graphCardItems:any;\n@Input('popover$') popover$:any;\nisPopover:any; \npublic edges:Edge;\npublic nodes:Node;\npublic popoverKeys:any;\npublic children:any;\npublic popOverData:any;\npublic popOverText:any;\npublic nodesCopy:any;\npublic edgesCopy:any;\n\n  constructor(private cd:ChangeDetectorRef) { }\n\n  ngOnInit(): void {\n    \n    \n    this.edges=this.graphCardItems.data.edges;\n    this.nodes=this.graphCardItems.data.nodes;\n    this.popover$.subscribe(x=>this.isPopover=x);\n    this.nodesCopy=JSON.parse(JSON.stringify(this.nodes));\n    this.edgesCopy=JSON.parse(JSON.stringify(this.edges));\n    if(this.isPopover){\n      this.popoverKeys=this.graphCardItems.items[0].fieldType;\n      this.createPopOver();\n    }\n  }\n  createPopOver(){\n    for(var i in this.nodesCopy){\n      this.popOverText={};\n      this.popOverData=[];\n      for(var j in this.popoverKeys){\n        if(this.nodesCopy[i].hasOwnProperty(this.popoverKeys[j])){\n          this.popOverText[this.popoverKeys[j]]=this.nodesCopy[i][this.popoverKeys[j]];\n        }\n      }\n      this.popOverData.push(this.popOverText);\n      this.nodesCopy[i]['popover']=this.popOverData;\n      console.log(\"hi\",this.nodesCopy[i]['popover'])\n      console.log(\"hello\",this,this.popOverData)\n    }\n  }\n\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -1259,7 +1259,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<ngx-graph class=\"chart-container\"\n[links]=\"edgesCopy\"\n[nodes]=\"nodesCopy\"\n[zoomLevel]=0.5>\n<ng-template #defsTemplate>\n    <svg:marker id=\"arrow\" viewBox=\"0 -5 10 10\" refX=\"8\" refY=\"0\" markerWidth=\"5\" markerHeight=\"5\" orient=\"auto\">\n        <svg:path d=\"M0,-5L10,0L0,5\" class=\"arrow-head\"/>\n    </svg:marker>\n</ng-template> \n<ng-template #nodeTemplate let-node>\n    <svg:g class=\"node\">\n        <svg:image [attr.href]=\"node.img\" [attr.height]=\"75\" [attr.width]=\"75\"\n        [appPopover]=\"node.popover\" class=\"popover\" placement=\"top\" delay=\"500\">\n    </svg:image>\n    <svg:text alignmnent-baseline=\"central\" [attr.x]=\"0\" [attr.y]=\"node.dimension.height\" class=\"node-label\">\n        {{node.label}}\n    </svg:text>\n    </svg:g>\n</ng-template>\n<ng-template #linkTemplate let-link>\n    <svg:g class=\"edge\">\n        <svf:path class=\"line\" stroke-width=\"3\" marker-end=\"url(#arrow)\">\n\n        </svf:path>\n        <svg:text class=\"edge-label\" text-anchor=\"middle\">\n            <textPath class=\"text-path\" [attr.href]=\"'#' +link.id\" [style.dominant-baseline]=\"link.dominantBaseline\" startOffset=\"50%\">\n                {{link.label}}\n            </textPath>\n        </svg:text>\n    </svg:g>\n</ng-template>\n</ngx-graph>"
+            "templateData": "<ngx-graph class=\"chart-container\"\n[links]=\"edgesCopy\"\n[nodes]=\"nodesCopy\"\n[zoomLevel]=0.5>\n<ng-template #defsTemplate>\n    <svg:marker id=\"arrow\" viewBox=\"0 -5 10 10\" refX=\"8\" refY=\"0\" markerWidth=\"5\" markerHeight=\"5\" orient=\"auto\">\n        <svg:path d=\"M0,-5L10,0L0,5\" class=\"arrow-head\"/>\n    </svg:marker>\n</ng-template> \n<ng-template #nodeTemplate let-node>\n    <svg:g class=\"node\">\n        <svg:image [attr.href]=\"node.img\" [attr.height]=\"75\" [attr.width]=\"75\"\n        [appPopover]=\"node.popover\" class=\"popover\" placement=\"top\" delay=\"500\">\n    </svg:image>\n    <svg:text alignmnent-baseline=\"central\" [attr.x]=\"0\" [attr.y]=\"node.dimension.height\" class=\"node-label\">\n        {{node.label}}\n    </svg:text>\n    </svg:g>\n</ng-template>\n<ng-template #linkTemplate let-link>\n    <svg:g class=\"edge\">\n        <svg:path class=\"line\" stroke-width=\"3\" marker-end=\"url(#arrow)\">\n\n        </svg:path>\n        <svg:text class=\"edge-label\" text-anchor=\"middle\">\n            <textPath class=\"text-path\" [attr.href]=\"'#' +link.id\" [style.dominant-baseline]=\"link.dominantBaseline\" startOffset=\"50%\">\n                {{link.label}}\n            </textPath>\n        </svg:text>\n    </svg:g>\n</ng-template>\n</ngx-graph>"
         },
         {
             "name": "PageComponent",
@@ -1548,6 +1548,291 @@
             "templateData": "<div style=\"display:block;\">\n    <canvas baseChart [datasets]=\"radarChartData\"\n    [labels]=\"radarChartLabels\" [options]=\"radarChartOptions\"\n     [chartType]=\"radarChartType\">\n    </canvas>\n    </div>\n    "
         },
         {
+            "name": "SelectComponent",
+            "id": "component-SelectComponent-34f8add48eecac0b8af0b0930127c05e",
+            "file": "src/app/components/select/select.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-select",
+            "styleUrls": [
+                "./select.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./select.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "options",
+                    "line": 14
+                },
+                {
+                    "name": "selectData",
+                    "line": 13
+                },
+                {
+                    "name": "selected",
+                    "line": 15
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "selectionChange",
+                    "defaultValue": "new EventEmitter<any>()",
+                    "line": 17,
+                    "type": "EventEmitter<any>"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "dashboardGroupItems",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
+                {
+                    "name": "emitData",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "filterValues$",
+                    "type": "Observable<any>",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "matSelect",
+                    "type": "MatSelect",
+                    "optional": false,
+                    "description": "",
+                    "line": 16,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "MatSelect"
+                        }
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24
+                },
+                {
+                    "name": "updateSelected",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "any"
+                        },
+                        {
+                            "name": "category",
+                            "type": "any"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 29,
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "category",
+                            "type": "any",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, OnInit, Output, ViewChild ,EventEmitter} from '@angular/core';\nimport { MatSelect } from '@angular/material/select';\nimport { Observable } from 'rxjs';\n\n\n\n@Component({\n  selector: 'app-select',\n  templateUrl: './select.component.html',\n  styleUrls: ['./select.component.scss']\n})\nexport class SelectComponent implements OnInit {\n@Input() selectData;\n@Input() options;\n@Input() selected;\n@ViewChild(MatSelect) matSelect:MatSelect;\n@Output() selectionChange:EventEmitter<any>=new EventEmitter<any>();\ndashboardGroupItems:any;\nemitData:any;\nfilterValues$:Observable<any>;\n\n  constructor() { }\n\n  ngOnInit(): void {\n   this.options= this.selectData.options;\n   this.selected=this.selectData.selected;\n  }\n\n  updateSelected(event:any,category:any){\n    if(event.isUserInput){\n      this. emitData={\n        category:category,\n        value:event.source.value};\n\n      }\n      this.selectionChange.emit(this.emitData);\n    }\n  }\n\n\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./select.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 20
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<mat-form-field appearance=\"fill\">\n    <mat-label>Select {{selectData.category}}</mat-label>\n    <mat-select [(value)]=\"selected\">\n        <mat-option *ngFor=\"let option of options\" value=\"{{option.value}}\"\n        (onSelectionChange)=\"updateSelected($event,selectData.category)\">{{option.text}}</mat-option>\n    </mat-select>\n</mat-form-field>"
+        },
+        {
+            "name": "SelectFilterComponent",
+            "id": "component-SelectFilterComponent-52fc562d78926be4ff2cf6e8fd10a822",
+            "file": "src/app/components/select-filter/select-filter.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-select-filter",
+            "styleUrls": [
+                "./select-filter.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./select-filter.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "hiddenColumnsList",
+                    "line": 11,
+                    "type": "any[]"
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "toggleAllSelectEvent",
+                    "line": 12,
+                    "type": "EventEmitter<any>"
+                },
+                {
+                    "name": "togglePerOneEvent",
+                    "line": 13,
+                    "type": "EventEmitter<any>"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "allselected",
+                    "type": "MatOption",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'allselected'"
+                        }
+                    ],
+                    "modifierKind": [
+                        112
+                    ]
+                },
+                {
+                    "name": "columnsForm",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 15
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 22
+                },
+                {
+                    "name": "toggleAllSelection",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28
+                },
+                {
+                    "name": "togglePerOne",
+                    "args": [
+                        {
+                            "name": "col",
+                            "type": "string"
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 35,
+                    "jsdoctags": [
+                        {
+                            "name": "col",
+                            "type": "string",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, OnInit, Output,EventEmitter, ViewChild } from '@angular/core';\nimport { FormBuilder, FormControl, FormGroup } from '@angular/forms';\nimport { MatOption } from '@angular/material/core';\n\n@Component({\n  selector: 'app-select-filter',\n  templateUrl: './select-filter.component.html',\n  styleUrls: ['./select-filter.component.scss']\n})\nexport class SelectFilterComponent implements OnInit {\n@Input() hiddenColumnsList:any[];\n@Output() toggleAllSelectEvent:EventEmitter<any>;\n@Output() togglePerOneEvent:EventEmitter<any>;\n@ViewChild('allselected') private allselected:MatOption;\ncolumnsForm:FormGroup;\n\n  constructor(private fb:FormBuilder) { \n    this.toggleAllSelectEvent=new EventEmitter();\n    this.togglePerOneEvent=new EventEmitter();\n  }\n\n  ngOnInit(): void {\n    this.columnsForm=this.fb.group({\n      columnControl:new FormControl('')\n    });\n  }\n\n  toggleAllSelection(){\n    this.toggleAllSelectEvent.emit({\n      allSelected:this.allselected,\n      columnsForm:this.columnsForm,\n    });\n  }\n\n  togglePerOne(col:string){\n    this.togglePerOneEvent.emit({\n      col:col,\n      allSelected:this.allselected,\n      columnsForm:this.columnsForm,\n    })\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./select-filter.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder"
+                    }
+                ],
+                "line": 15,
+                "jsdoctags": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<mat-form-field [formGroup]=\"columnsForm\">\n    <mat-label> Coulmns Visibility</mat-label>\n    <mat-select formControlName=\"columnControl\" multiple>\n        <mat-option #allSelected (click)=\"toggleAllSelection()\" [value]=\"0\">Select All</mat-option>\n        <hr>\n        <mat-option *ngFor=\"let col of hiddenColumnsList\" [value]=\"col\" (click)=\"togglePerOne(col)\">\n            {{col}}\n        </mat-option>\n    </mat-select>\n</mat-form-field>"
+        },
+        {
             "name": "SpinnerComponent",
             "id": "component-SpinnerComponent-529e8b99e159ec9ad7ff400ac55c562e",
             "file": "src/app/components/spinner/spinner.component.ts",
@@ -1602,6 +1887,67 @@
                 "OnInit"
             ],
             "templateData": "<mat-spinner></mat-spinner>"
+        },
+        {
+            "name": "SummaryListComponent",
+            "id": "component-SummaryListComponent-4f4fbe13da37466711d520800c58f2ad",
+            "file": "src/app/components/summary-list/summary-list.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-summary-list",
+            "styleUrls": [
+                "./summary-list.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./summary-list.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "list",
+                    "line": 9
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12
+                }
+            ],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-summary-list',\n  templateUrl: './summary-list.component.html',\n  styleUrls: ['./summary-list.component.scss']\n})\nexport class SummaryListComponent implements OnInit {\n@Input() list;\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".list-row-title{font-weight:600}\r\n",
+                    "styleUrl": "./summary-list.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 9
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<p *ngFor=\"let summaryListRow of list\">\n    <span class=\"list-row-title\">{{summaryListRow.text}}</span>\n    <span *ngIf=\"summaryListRow.count\">:{{summaryListRow.count}}</span>\n    <span *ngIf=\"summaryListRow.category\">{{summaryListRow.category}}</span>\n</p>"
         },
         {
             "name": "TabsComponent",
@@ -1733,7 +2079,16 @@
                             "name": "RadarComponent"
                         },
                         {
+                            "name": "SelectComponent"
+                        },
+                        {
+                            "name": "SelectFilterComponent"
+                        },
+                        {
                             "name": "SpinnerComponent"
+                        },
+                        {
+                            "name": "SummaryListComponent"
                         },
                         {
                             "name": "TabsComponent"
@@ -1900,7 +2255,7 @@
                 "subtype": "variable",
                 "file": "src/app/material/material.module.ts",
                 "type": "[]",
-                "defaultValue": "[MatSidenavModule,MatProgressSpinnerModule,MatTabsModule]"
+                "defaultValue": "[MatSidenavModule,MatProgressSpinnerModule,MatTabsModule,MatSelectModule,MatFormFieldModule,ReactiveFormsModule]"
             },
             {
                 "name": "NoImageCaption",
@@ -2140,7 +2495,7 @@
                     "subtype": "variable",
                     "file": "src/app/material/material.module.ts",
                     "type": "[]",
-                    "defaultValue": "[MatSidenavModule,MatProgressSpinnerModule,MatTabsModule]"
+                    "defaultValue": "[MatSidenavModule,MatProgressSpinnerModule,MatTabsModule,MatSelectModule,MatFormFieldModule,ReactiveFormsModule]"
                 }
             ],
             "src/stories/Image.stories.ts": [
@@ -2308,12 +2663,39 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/components/select-filter/select-filter.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SelectFilterComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/10",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/select/select.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SelectComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/components/spinner/spinner.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "SpinnerComponent",
                 "coveragePercent": 0,
                 "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/summary-list/summary-list.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SummaryListComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {

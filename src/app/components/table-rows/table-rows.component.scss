@@ -1,0 +1,9 @@
+table{width:100%}
+.table-container{display:flex;flex-direction:column;max-height:500px;min-width:300px;margin-bottom:20px}
+
+.mat-table{overflow:auto;max-height:500px}
+
+.mat-cell{font-size:0.8em;
+    div > div{display:inline-block}
+    button{padding:3px 14px 3px 10px;margin:4px 0;width:calc(100%-4px);text-align:center}
+}

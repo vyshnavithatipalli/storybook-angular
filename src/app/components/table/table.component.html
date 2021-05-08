@@ -1,0 +1,36 @@
+<h3>{{item.title}}</h3>
+<atomic-filter *ngIf="fetchedColumns" [item]="fetchedColumns" (newItemEvent)="addItem($event)"></atomic-filter>
+<div class="table-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" multiTemplateDataRows matSort>
+        <ng-container *ngFor ="let col of fetchedColumns" [matColumnDef]="col.name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>{{col.title}}</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <div *ngIf="col.customComponent=='NESTED_TABLE'">
+                    <mat-icon (click)="toggleNestedRow(row,col)">{{expandedElement==row?'expand_less':'expand_more'}}</mat-icon>
+                </div>
+                <div *ngIf="col.customComponent!='ACTIONS'">
+                    {{row[col.name]}}
+                </div>
+                <div *ngIf="col.customComponent=='ACTIONS'">
+                    <div *ngFor ="let action of actions">
+                        <button class="button-primary-popover" type="button" mat-raised-button (click)="toggleDrawer(action.source,row,action.paramFields)" [appPopover]="buttonPopover"
+                        placement="top" delay="500">
+                    {{action.text}}
+                       </button>
+                    </div>
+                </div>
+            </mat-cell>
+        </ng-container>
+<mat-header-row *matHeaderRowDef="visibleColumnsList;sticky:true"></mat-header-row>
+<mat-row *matRowDef ="let row; columns:visibleColumnsList;"></mat-row>
+<mat-row *matRowDef="let row; columns:['expandedDetail']" class="nestedTableRow"></mat-row>
+<ng-container matColumnDef="expandedDetail">
+    <mat-cell *matCellDef="let row" [attr.colspan]="visibleColumnsList.length" [@detailExpand]="row==expandedElement?'expanded':'collapsed'">
+        <div *ngIf="row==expandedElement" class="nestedComponent">
+            <ng-template appTableNestDirective
+             [item]="item"></ng-template>
+        </div>
+    </mat-cell>
+</ng-container>
+    </mat-table>
+</div>

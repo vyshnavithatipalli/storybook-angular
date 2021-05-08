@@ -25,6 +25,11 @@ import { SelectFilterComponent } from './components/select-filter/select-filter.
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SummaryListComponent } from './components/summary-list/summary-list.component';
+import { TableComponent } from './components/table/table.component';
+import { TableNestDirectiveDirective } from './directives/table-nest-directive.directive';
+import { TableNestItemComponent } from './components/table-nest-item/table-nest-item.component';
+import { TablePanelComponent } from './components/table-panel/table-panel.component';
+import { TableRowsComponent } from './components/table-rows/table-rows.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +48,12 @@ import { SummaryListComponent } from './components/summary-list/summary-list.com
     TabsComponent,
     SelectComponent,
     SelectFilterComponent,
-    SummaryListComponent
+    SummaryListComponent,
+    TableComponent,
+    TableNestDirectiveDirective,
+    TableNestItemComponent,
+    TablePanelComponent,
+    TableRowsComponent
   ],
   imports: [
     BrowserModule,
